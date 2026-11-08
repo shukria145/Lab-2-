@@ -24,7 +24,15 @@ No. DFS just finds a path; it doesn't check if it's the shortest because it stop
  **5. Does BFS always produce the shortest path when every movement costs 1? Why?**  
  Yes. Because it explores all nodes at the current depth before moving deeper, it is guaranteed to find the goal in the fewest possible steps.
 
----
+--- 
+## Section 8: Experiment 1 — Change the Neighbor Order
+
+**Question: Did the DFS path change? Did BFS's path (Section 4) depend on this ordering the same way? Why or why not?**
+
+**Answer:** 
+Yes, the DFS path changed. When we changed the directions to prioritize moving Right and Down first, DFS found a different path. 
+
+BFS's path does *not* depend on the ordering of the directions. BFS will always find the absolute shortest path regardless of what order the directions are in, because it searches level-by-level and explores all options equally. DFS commits to the first direction it can, so changing the order completely changes the path it takes.
  ## 9. Experiment 2 — Change `start` and `goal`
 
 Here are the results for 3 different (start, goal) pairs:

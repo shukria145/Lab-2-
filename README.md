@@ -25,19 +25,30 @@ No. DFS just finds a path; it doesn't check if it's the shortest because it stop
  Yes. Because it explores all nodes at the current depth before moving deeper, it is guaranteed to find the goal in the fewest possible steps.
 
 ---
-g
-## Section 9: Experiment 2 — Change start and goal
+ ## 9. Experiment 2 — Change `start` and `goal`
+
+Here are the results for 3 different (start, goal) pairs:
+
+| Start | Goal | BFS Length | BFS Max Frontier | DFS Length | DFS Max Frontier |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (0, 0) | (4, 4) | 8 | 13 | 14 | 9 |
+| (0, 0) | (2, 2) | 4 | 9 | 10 | 7 |
+| (4, 4) | (0, 0) | 8 | 11 | 8 | 11 |
 
 ### Answer these questions:
 
-> *1. Does BFS's path length ever change if you re-run it with the same start/goal? Does DFS's?*
-> BFS will never change (it's always the shortest). DFS might change if you change the order of the directions list, but if the code stays exactly the same, re-running it will give the same path.
+**1. Does BFS's path length ever change if you re-run it with the same start/goal? Does DFS's?**
 
-> *2. As the distance between start and goal grows, what happens to the maximum frontier size for each algorithm?*
-> For BFS, the frontier grows much faster (it expands in a wide circle). For DFS, the frontier grows much slower (it only remembers the path it's currently on).
+BFS will never change (it is guaranteed to find the absolute shortest path). DFS will stay the same as long as the `directions` list is the same, but if you change the order of directions, DFS's path length will change.
 
-> *3. Can you find a (start, goal) pair where BFS and DFS return the same path? What does that tell you about the maze structure?*
-> Yes (e.g., if the goal is right next to the start). It tells us that there is only one direct, unobstructed path between them, so both algorithms are forced to take the same route.
+**2. As the distance between start and goal grows, what happens to the maximum frontier size for each algorithm?**
 
-> *4. What happens if goal is unreachable from start (e.g. sealed off by walls)? Try it — what do bfs() and dfs() return?*
-> They will eventually explore the entire open space, the frontier will become empty, the while loop will end, and the function will return None
+For BFS, the maximum frontier size grows significantly because it explores outwards in all directions like a circle. For DFS, the maximum frontier size grows much slower because it only keeps track of the single path it is currently exploring.
+
+**3. Can you find a (start, goal) pair where BFS and DFS return the same path? What does that tell you about the maze structure?**
+
+Yes, looking at the third row (Start 4,4 to Goal 0,0), both BFS and DFS found a path of length 8. This tells us that there is only one clear path between those two points (there are no loops or alternative routes).
+
+**4. What happens if goal is unreachable from start (e.g. sealed off by walls)? Try it — what do bfs() and dfs() return?**
+
+If the goal is completely sealed off, the `frontier` will eventually become empty because the algorithms will explore every possible open cell. When the `while` loop ends, the functions will return `None`.

@@ -1,4 +1,5 @@
-# Lab-2-## Section 7: Compare BFS and DFS
+# Lab-2- Problem Solving by Searching — Uninformed Search 
+## Section 7: Compare BFS and DF
 
 Here are the results from running the code:
 
@@ -16,7 +17,8 @@ Here are the results from running the code:
 BFS had the larger maximum frontier.
 
  **3. Why did the two algorithms produce different paths on the same maze?**  
- Because BFS explores level-by-level (FIFO) to find the shortest route, while DFS dives deep into one branch as far as possible before backtracking (LIFO).
+ Because BFS explores level-by-level (FIFO) to find the shortest route
+ while DFS dives deep into one branch as far as possible before backtracking (LIFO).
 
  **4. Does DFS always produce the shortest path? Why or why not?**  
 No. DFS just finds a path; it doesn't check if it's the shortest because it stops as soon as it hits the goal, even if it took a long route.
@@ -26,13 +28,28 @@ No. DFS just finds a path; it doesn't check if it's the shortest because it stop
 
 --- 
 ## Section 8: Experiment 1 — Change the Neighbor Order
+Original DFS order:
+- up, down, left, right
 
-**Question: Did the DFS path change? Did BFS's path (Section 4) depend on this ordering the same way? Why or why not?**
+Changed order:
+- right, down, left, up
 
-**Answer:** 
-Yes, the DFS path changed. When we changed the directions to prioritize moving Right and Down first, DFS found a different path. 
+### Did the DFS path change?
+- Yes, the DFS path usually changes when the neighbor order changes.
 
-BFS's path does *not* depend on the ordering of the directions. BFS will always find the absolute shortest path regardless of what order the directions are in, because it searches level-by-level and explores all options equally. DFS commits to the first direction it can, so changing the order completely changes the path it takes.
+### Why?
+- DFS explores the next neighbor in the order it appears in the list.
+- Different orders cause the algorithm to follow different branches first, so it can find a different route to the goal.
+
+### Did BFS’s path depend on this ordering the same way?
+- Not in the same way.
+- BFS is still layer-by-layer and still guarantees a shortest path length.
+- Neighbor ordering can change which shortest path is chosen if there are multiple equally short paths, but BFS still explores by distance, not by branch depth.
+- DFS is much more sensitive to neighbor ordering because it chooses one branch and keeps going.
+
+***Note***: In many mazes, BFS may still return the same path length even if the exact route changes, as long as there are multiple shortest routes.
+
+---
  ## 9. Experiment 2 — Change `start` and `goal`
 
 Here are the results for 3 different (start, goal) pairs:
